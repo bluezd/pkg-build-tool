@@ -11,11 +11,10 @@ from libpkgbuild.checkRPMNOTBuild import CheckRPMNOTBuild
 
 def actionPrompt():
     """docstring for main"""
-    #os.system("clear")
     print "################## The i-Soft OS Image Building Tool ##################"
     print "#    1. Generate the srpm list that need to build                     #"
     print "#    2. Check the RH CDROM to see which rpm has not been built yet    #"
-    print "#    3. Check the all.pkg to see whether each item is correct         #"
+    print "#    3. Check the all.pkg to see whether each item has been built     #"
     print "#    4. Check the duplicated rpms and remove the lower version        #"
     print "#                                                                     #"
     print "#    Press 'q' to quit this tool                                      #"
