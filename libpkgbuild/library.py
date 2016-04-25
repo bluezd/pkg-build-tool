@@ -1,9 +1,10 @@
+#!/usr/bin/python
+
 import string, os, sys, copy, re
 import readline, getpass
 from rpmUtils.miscutils import splitFilename
 
 class Environment(object):
-    """docstring for Environment"""
     def __init__(self):
         self.arch = os.uname()[-1]
         self.rpm_build_dir = "/project/results/RPMS/"
@@ -24,8 +25,7 @@ class Environment(object):
         """docstring for run"""
         pass
 
-class CommandLineUI:
-    
+class CommandLineUI(object):
     def __init__(self, echoResponses=True):
         self.echo = echoResponses
         
@@ -114,7 +114,3 @@ class CommandLineUI:
             
     def promptPassword(self, message):
         return getpass.getpass(message)
-
-
-  
-    
