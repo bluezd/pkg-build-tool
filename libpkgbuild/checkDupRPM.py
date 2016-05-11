@@ -36,7 +36,7 @@ class CheckDupRpm(Environment):
 
             print ">>> Move the duplicated rpms ..."
             for rpms in self.dup_rpm_list:
-                shutil.move(os.path.join(self.rpm_build_dir, rpms), DES_DIR)
+                shutil.move(os.path.join(self.rpm_build_dir, rpms), self.backup_des_dir)
             print "*** All done ***"
         else:
             print "*** Do not find any duplicated RPMS ***"
