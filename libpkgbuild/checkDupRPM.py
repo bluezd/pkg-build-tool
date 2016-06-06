@@ -20,8 +20,8 @@ class CheckDupRpm(Environment):
                 self.all_rpm_info[n] = files
             else:
                 (name, version, release, e, arch) = splitFilename(self.all_rpm_info[n])
-                if ((v > version) or 
-                        (v == version and r > release)):
+                if (a == arch and ((v > version) or
+                        (v == version and r > release))):
                     self.dup_rpm_list.append(self.all_rpm_info[n])
                     self.all_rpm_info[n] = files
                 else:
