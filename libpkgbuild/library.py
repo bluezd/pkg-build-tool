@@ -18,8 +18,7 @@ class Environment(object):
         """docstring for get_all_rpm_info"""
         self.all_build_rpm = list()
         for files in os.listdir(self.rpm_build_dir):
-            (n, v, r, e, a) = splitFilename(files)
-            self.all_build_rpm.append(n)
+            self.all_build_rpm.append(splitFilename(files)[0])
 
     def run(self):
         """docstring for run"""

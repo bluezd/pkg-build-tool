@@ -2,6 +2,7 @@
 
 import os
 from library import Environment, CommandLineUI
+from rpmUtils.miscutils import splitFilename
 
 class CompareRPMPKG(Environment):
     """docstring for CompareRPMPKG"""
@@ -36,15 +37,38 @@ class CompareRPMPKG(Environment):
         if os.path.exists(self.all_pkg_file) and \
                 os.path.exists(self.rpm_build_dir):
                     print "### Starting Verifying ###"
-                    not_match = False
+                    allPkgInISOOLD = list()
+                    not_match_list = list()
                     f = open(self.all_pkg_file)
-                    for line in f:
-                        if not os.path.exists(os.path.join(self.rpm_build_dir, line.strip())):
-                            not_match = True
-                            print "!! RPM: %s is not in %s !!" %(line.strip(), self.rpm_build_dir)
+                    allPkgInISOOLD = [i.strip('\n') for i in f.readlines()]
                     f.close()
+                    for line in allPkgInISOOLD:
+                        if not os.path.exists(os.path.join(self.rpm_build_dir, line.strip())):
+                            not_match_list.append(line.strip())
+                            print "!! RPM: %s is not in %s !!" %(line.strip(), self.rpm_build_dir)
                     print "### Done ###"
-                    if not not_match:
+                    if len(not_match_list) > 0:
+                        answer = self.ui.promptConfirm("Would you like to Re-generate all.pkg.file ?")
+                        if answer:
+                            allPkgInISONew = list()
+                            for j in os.listdir(self.rpm_build_dir):
+                                (n, v, r, e, a) = splitFilename(j)
+                                for k in not_match_list:
+                                    (name, version, release, e, arch) = splitFilename(k)
+                                    if (a == arch and n == name and
+                                            ((v > version) or (v == version and r > release))):
+                                            allPkgInISONew.append(j)
+                                            break
+                                else:
+                                    if j in allPkgInISOOLD: allPkgInISONew.append(j)
+
+                            f = open(os.path.join(os.path.dirname(self.all_pkg_file), "all.pkg.ppc64le.new"), "w+")
+                            for line in allPkgInISONew:
+                                f.write(line+'\n')
+                            f.close()
+                            print "### New all.pkg.ppc64le has been generated(%s) ###" \
+                                    %(os.path.join(os.path.dirname(self.all_pkg_file), "all.pkg.ppc64le.new"))
+                    else:
                         print "### Each item in %s do exist in %s ###" %(self.all_pkg_file, self.rpm_build_dir)
         else:
             print "!! Error: file does not exist !!"
