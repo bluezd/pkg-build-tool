@@ -15,7 +15,7 @@ def actionPrompt():
     print "#    1. Generating SRPM Package List                                  #"
     print "#    2. Checking RPMs Has Not Been Built(Compared with RH CDROM)      #"
     print "#    3. Removing Duplicated Lower Version RPMs                        #"
-    print "#    4. Checking/Generating 'all.pkg.$arch' File                      #"
+    print '#    4. Checking/Generating "all.pkg.$arch" File                      #'
     print "#                                                                     #"
     print "#    Press 'q' to quit this tool                                      #"
     print "#######################################################################"

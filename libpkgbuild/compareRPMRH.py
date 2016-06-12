@@ -34,6 +34,7 @@ class CompareRPMRH(Environment):
                     else:
                         print "!!  %s does not exist, please input again !!" %(res)
 
+        os.system("clear")
         if os.path.exists(self.rh_cdrom_dir) and \
                 os.path.exists(self.rpm_build_dir):
                     print "### Starting Verifying ###"
@@ -48,11 +49,10 @@ class CompareRPMRH(Environment):
                         (n, v, r, e, a) = splitFilename(files)
                         if a == self.arch and n not in isoft_build_rpm_list:
                             not_build = True
-                            print "### %s is not build ###" %(files)
+                            print "### FAIL: %s Has Not Been Built ###" %(files)
 
-                    print "### Done ###"
                     if not not_build:
-                        print "### All the Arch related rpms have been built(compare with RH CDROM) ###"
+                        print "### PASS: All Arch Related RPMs Have Been Built ###"
         else:
             print "!! Error: file does not exist !!" 
 
