@@ -35,6 +35,14 @@ class CheckDupRpm(Environment):
                 f.write(line+'\n')
             f.close()
 
+            while True:
+                res = self.ui.prompt(">>> Please specify the locaiton of RPM remove target dir:")
+                if os.path.exists(res):
+                    self.backup_des_dir = res
+                    break
+                else:
+                    print "!!  %s does not exist, please input again !!" %(res)
+
             print "### Moving Duplicated RPMs ###"
             for rpms in self.dup_rpm_list:
                 shutil.move(os.path.join(self.rpm_build_dir, rpms), self.backup_des_dir)
