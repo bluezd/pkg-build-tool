@@ -2,13 +2,14 @@
 
 import os
 import shutil
-from library import Environment
+from library import Environment, CommandLineUI
 from rpmUtils.miscutils import splitFilename
 
 class CheckDupRpm(Environment):
     """docstring for CheckDupRpm"""
     def __init__(self):
         super(CheckDupRpm, self).__init__()
+        self.ui = CommandLineUI(echoResponses=False)
         self.all_rpm_info = dict()
         self.dup_rpm_list = list()
 
